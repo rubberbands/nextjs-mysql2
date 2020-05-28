@@ -1,1 +1,0 @@
-{"ast":null,"code":"export default (() => {\n  return [{\n    id: 0,\n    name: \"geraldi\",\n    address: \"Indonesia\",\n    email: \"geraldi@email.com\",\n    phone: \"1234567890\"\n  }];\n});","map":null,"metadata":{},"sourceType":"module"}

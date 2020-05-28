@@ -4,7 +4,7 @@ export default (props) => {
     return (
         <div className="employeeComponent">
             <div style={{flex: '1 0 auto'}}>
-                <Link href={{ pathname: '/employee', query: { id: props.id } }}>
+                <Link href={{ pathname: '/employee', query: { id: props.data.id } }}>
                     {props.data.name}
                 </Link>
             </div>

@@ -1,12 +1,11 @@
 import React from 'react'
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
 import Router from 'next/router'
 
 export default class extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            id : '',
             name : '',
             address : '',
             email : ''
@@ -15,13 +14,6 @@ export default class extends React.Component {
         this.handleChangeAddress = this.handleChangeAddress.bind(this)
         this.handleChangeEmail = this.handleChangeEmail.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    async componentDidMount(){
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const id = urlParams.get('id')
-        this.getEmployee(id)
     }
 
     handleChangeName(event){
@@ -36,19 +28,6 @@ export default class extends React.Component {
         this.setState({email: event.target.value});
     }
 
-    getEmployee(id) {
-        fetch('/api/employee/' + id)
-        .then(res => res.json())
-        .then(response => {
-          this.setState({
-                id : response.employee.id,
-                name : response.employee.name,
-                address : response.employee.address,
-                email : response.employee.email
-            })
-        })
-    }
-
     handleSubmit(e) {
         e.preventDefault()
 
@@ -58,7 +37,7 @@ export default class extends React.Component {
             email: this.state.email
           }
 
-        fetch('/api/update/' + this.state.id, {
+        fetch('/api/new', {
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
@@ -74,14 +53,23 @@ export default class extends React.Component {
 
     }
 
-    render(){
+    render() {
         return(
             <Layout {...this.props}>
-                <div className="container">
-                    <form >
-                        <p>Name : </p> <input type='text' value={this.state.name} onChange={this.handleChangeName}/>
-                        <p>Address : </p> <input type='text' value={this.state.address} onChange={this.handleChangeAddress}/>
-                        <p>Email : </p> <input type='text' value={this.state.email} onChange={this.handleChangeEmail}/>
+                <div>
+                    <form>
+                        <label>
+                            Name:
+                            <input type="text" value={this.state.name} onChange={this.handleChangeName}/>
+                        </label>
+                        <label><br />
+                            Address:
+                            <input type="text" value={this.state.address} onChange={this.handleChangeAddress}/>
+                        </label><br />
+                        <label>
+                            Email:
+                            <input type="text" value={this.state.email} onChange={this.handleChangeEmail}/>
+                        </label>
                         <input type="submit" value="Submit" onClick={this.handleSubmit}/>
                     </form>
                 </div>
